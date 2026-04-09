@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - RewardsHub</title>
+    <style>
+        body { background: #0c0c0e; color: white; font-family: 'Segoe UI', sans-serif; padding: 20px; }
+        .contact-container { max-width: 500px; margin: 50px auto; background: #16161a; padding: 30px; border-radius: 20px; border: 1px solid #333; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { color: #fcc100; text-align: center; margin-bottom: 10px; }
+        p { color: #888; text-align: center; font-size: 0.9rem; margin-bottom: 30px; }
+        input, textarea { width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #333; background: #0c0c0e; color: white; box-sizing: border-box; }
+        input:focus, textarea:focus { border-color: #fcc100; outline: none; }
+        .send-btn { background: #fcc100; color: black; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .send-btn:hover { background: #ffcc00; transform: translateY(-2px); }
+        .info-item { font-size: 0.8rem; color: #666; text-align: center; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="contact-container">
+    <h1>CONTACT US</h1>
+    <p>Have a question or issue with your reward? Send us a message and our team will respond within 24 hours.</p>
+    
+    <form action="https://formspree.io/f/your@email.com" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email Address" required>
+        <textarea name="message" rows="5" placeholder="How can we help you?" required></textarea>
+        <button type="submit" class="send-btn">Send Message</button>
+    </form>
+    
+    <div class="info-item">
+        Support available: Mon-Fri (9AM - 5PM EST)
+    </div>
+</div>
+
+<div style="text-align:center;">
+    <a href="index.html" style="color:#fcc100; text-decoration:none; font-size:14px;">← Back to Home</a>
+</div>
+
+</body>
+</html>

