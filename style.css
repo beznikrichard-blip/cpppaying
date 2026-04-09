@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+:root {
+    --background-color: #121212;
+    --surface-color: #1e1e1e;
+    --primary-color: #03dac6;
+    --text-color: #ffffff;
+    --text-secondary-color: #b3b3b3;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(45deg, #1e132a, #121212, #1a222f);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.logo i {
+    color: var(--primary-color);
+    margin-right: 8px;
+}
+
+.search-bar {
+    background-color: var(--surface-color);
+    padding: 10px 15px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    margin-right: 10px;
+}
+
+.search-bar i {
+    color: var(--text-secondary-color);
+}
+
+.hero {
+    text-align: center;
+    padding: 60px 0;
+}
+
+.hero h1 {
+    font-size: 3rem;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: var(--text-secondary-color);
+    margin-top: 10px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 25px;
+    padding: 40px 0;
+}
+
+.card {
+    background-color: var(--surface-color);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #333;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 15px var(--primary-color);
+}
+
+.card img {
+    max-width: 80%;
+    max-height: 50px;
+    filter: invert(1);
+}
+.card[data-card="amazon"] img,
+.card[data-card="roblox"] img {
+    filter: none;
+}
+
+
+.trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.badge {
+    color: var(--text-secondary-color);
+}
+
+.badge i {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Modal (Content Locker) Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--surface-color);
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.8rem;
+    color: var(--text-secondary-color);
+    cursor: pointer;
+}
+
+#modal-body h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+#modal-body p {
+    text-align: center;
+    color: var(--text-secondary-color);
+    margin-bottom: 25px;
+}
+.content-locker-placeholder {
+    background-color: #111;
+    border: 2px dashed #333;
+    padding: 40px;
+    text-align: center;
+    border-radius: 10px;
+    color: #666;
+}
+
+/* Footer Styles (The Simple & Stable Version) */
+footer {
+    padding: 40px 0 20px 0; /* مسافة من المحتوى اللي فوقه */
+}
+
+footer p {
+    text-align: center; /* يضمن التوسيط */
+    color: var(--text-secondary-color);
+    font-size: 0.9rem;
+}
